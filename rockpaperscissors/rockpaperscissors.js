@@ -52,31 +52,16 @@ Router.map(function() {
 if (Meteor.isClient) {
 
   // =====> Rock/Paper/Scissors selection
-  Template.rockpaperscissors.helpers({
-    counter: function() {
-      return Session.get('counter');
-    }
-  });
 
   Template.rockpaperscissors.events({
     'click #rock': function() {
-      console.log(this.playerID + "Clicked rock")
-      PlayerState.insert({
-        _id: this.playerID,
-        selected: "rock"
-      })
+      Meteor.call("playRoutine", this.playerID, "rock")
     },
     'click #paper': function() {
-      PlayerState.insert({
-        _id: this.playerID,
-        selected: "paper"
-      })
+      Meteor.call("playRoutine", this.playerID, "paper")
     },
     'click #scissors': function() {
-      PlayerState.insert({
-        _id: this.playerID,
-        selected: "scissors"
-      })
+      Meteor.call("playRoutine", this.playerID, "scissors")
     }
   });
 
@@ -92,9 +77,8 @@ if (Meteor.isClient) {
     }
   })
   Template.results.events({
-    "click #restart" : function() {
-      PlayerState.remove({"_id" : "1"})
-      PlayerState.remove({"_id" : "2"})
+    "click #restart": function() {
+      Meteor.call("resetState")
     }
   })
 }
@@ -137,3 +121,20 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+Meteor.methods({
+  playRoutine: function(playerID, played) {
+    PlayerState.insert({
+      _id: playerID,
+      selected: played
+    })
+  },
+  resetState: function() {
+    PlayerState.remove({
+      "_id": "1"
+    })
+    PlayerState.remove({
+      "_id": "2"
+    })
+  }
+})
