@@ -1,14 +1,38 @@
 <head>
-  <title>rockpaperscissors</title>
+  <title>Rock Paper Scissors</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+ <h1> Rock! Paper! Scissors! </h1>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="home">
+To play Rock Paper Scissors,
+either visit:
+<a href="player1"> Player1 </a>
+<a href="player2"> Player1 </a>
+</template>
+
+<template name="player1">
+  {{> rockpaperscissors playerID="1"}}
+</template>
+
+<template name="player2">
+  {{> rockpaperscissors playerID="2"}}
+</template>
+
+<template name="rockpaperscissors">
+ Player {{playerID}}
+ <div id="rock"> Rock </div>
+ <div id="paper"> Paper </div>
+ <div id="scissors"> Scissors </div>
+</template>
+
+<template name="waiting">
+ {{playerID}} Waiting for results
+</template>
+
+<template name="results">
+The winner is {{winnerResults}}
+<div id="restart"> Restart game </div>
 </template>
