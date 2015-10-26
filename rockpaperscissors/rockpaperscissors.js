@@ -13,7 +13,6 @@ if (Meteor.isClient) {
 
     function routeForPlayer(playerID) {
       return function() {
-        console.log("Deciding what to render for player: " + playerID)
         this.subscribe('playerStateCollection', playerID).wait()
         this.subscribe('gameState', playerID).wait()
 
@@ -21,7 +20,6 @@ if (Meteor.isClient) {
           var gameState = GameState.findOne({
             "_id": playerID
           })
-          console.log(gameState)
           this.render(gameState.state, {
             data: {
               playerID: playerID,

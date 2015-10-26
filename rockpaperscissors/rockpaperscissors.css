@@ -1,1 +1,61 @@
 /* CSS declarations go here */
+
+body {
+    height: 100%;
+    margin: auto;
+    vertical-align: center;
+    display: table;
+}
+
+#playerInfo {
+    width: 100%;
+    display: table;
+    margin-bottom: 30px;
+}
+
+.choice {
+    margin: 0 auto;
+    padding: 0;
+    height: 2em;
+}
+
+#rock {
+    background-color: #C47900;
+}
+
+#rock:hover {
+    background-color: #855200;
+}
+
+#paper {
+    background-color: #F0F0F0;
+}
+
+#paper:hover {
+    background-color: #DBDBDB;
+}
+
+#scissors {
+    background-color: #ADADAD;
+}
+
+#scissors:hover {
+    background-color: #8C8C8C;
+}
+
+#playerInfo {
+    margin: 0 auto 30px auto;
+}
+
+#winner {
+    margin: 0 auto;
+}
+
+#restart {
+    margin: 0 auto;
+    background-color: #D10000;
+}
+
+#restart:hover {
+    background-color: #B50000;
+}

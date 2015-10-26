@@ -1,5 +1,5 @@
 <head>
-  <title>rock paper scissors</title>
+  <title>Rock! Paper! Scissors!</title>
 </head>
 
 <body>
@@ -7,14 +7,16 @@
 </body>
 
 <template name="home">
-To play Rock Paper Scissors,
-either visit:
-<a href="player1"> Player1 </a>
-<a href="player2"> Player1 </a>
+To play Rock Paper Scissors, either visit:
+<ul>
+<li> <a href="player1"> Player 1 </a> </li>
+<li> <a href="player2"> Player 2 </a> </li>
+</ul>
 </template>
 
 <template name="loading">
 Loading...
+<img src="ajax-loader.gif"/>
 </template>
 
 <template name="player1">
@@ -26,17 +28,21 @@ Loading...
 </template>
 
 <template name="rockpaperscissors">
- Player {{playerID}}
- <div id="rock"> Rock </div>
- <div id="paper"> Paper </div>
- <div id="scissors"> Scissors </div>
+ <div id="playerInfo"> You are: Player {{playerID}} </div>
+
+ <div id="rock" class="choice"> Rock </div>
+ <div id="paper" class="choice"> Paper </div>
+ <div id="scissors" class="choice"> Scissors </div>
 </template>
 
 <template name="waiting">
-{{playerID}} Waiting for results
+Waiting for other player to choose
+<img src="ajax-loader.gif"/>
 </template>
 
 <template name="results">
-The winner is {{winnerResults}}
-<div id="restart"> Restart game </div>
+
+<div id="winner">{{winnerResults}}</div>
+
+<div id="restart"> Click to Restart game </div>
 </template>
