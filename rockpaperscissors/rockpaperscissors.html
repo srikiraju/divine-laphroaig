@@ -13,6 +13,10 @@ either visit:
 <a href="player2"> Player1 </a>
 </template>
 
+<template name="loading">
+Loading...
+</template>
+
 <template name="player1">
   {{> rockpaperscissors playerID="1"}}
 </template>
@@ -29,7 +33,7 @@ either visit:
 </template>
 
 <template name="waiting">
- {{playerID}} Waiting for results
+{{playerID}} Waiting for results
 </template>
 
 <template name="results">
