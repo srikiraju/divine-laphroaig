@@ -8,6 +8,7 @@ Router.map(function() {
 
   function routeForPlayer(playerID) {
     return function() {
+      this.wait(Meteor.subscribe('playerStateCollection', playerID))
       console.log("Deciding what to render for player: " + playerID)
         // Two queries to determine what to do
       var player1State = PlayerState.findOne({
@@ -119,7 +120,11 @@ function decideWinner(p1, p2) {
 if (Meteor.isServer) {
   Meteor.startup(function() {
     // code to run on server at startup
-  });
+  })
+  Meteor.publish("playerStateCollection", function(playerID) {
+    // XXX: Need some way to ship something more complex
+    return PlayerState.find({})
+  })
 }
 
 Meteor.methods({
