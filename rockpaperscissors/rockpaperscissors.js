@@ -34,6 +34,39 @@ if (Meteor.isClient) {
 
     this.route("/player1", routeForPlayer("1"))
     this.route("/player2", routeForPlayer("2"))
+
+    this.route("/getisbn", function() {
+      console.log(this.params)
+      if (this.params.query.isbn !== undefined) {
+      console.log(this)
+        var queryURL = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + this.params.query.isbn
+        var bookNameR = new ReactiveVar("")
+        var bookImgR = new ReactiveVar("")
+        var authorsR = new ReactiveVar("")
+
+        console.log(queryURL)
+        HTTP.get(queryURL,
+          function(err, res) {
+            var isbnData = JSON.parse(res.content)
+            console.log(isbnData)
+            bookNameR.set(isbnData.items[0].volumeInfo.title)
+            bookImgR.set(isbnData.items[0].volumeInfo.imageLinks.thumbnail)
+            authorsR.set(isbnData.items[0].volumeInfo.authors)
+          }
+        )
+
+        this.render("isbn", {
+          data: {
+            isbnNumber: this.params.query.isbn,
+            bookName: bookNameR,
+            bookImg: bookImgR,
+            authors : authorsR
+          }
+        })
+      } else {
+        this.render("isbninput");
+      }
+    })
   })
 
   Template.rockpaperscissors.events({
@@ -51,6 +84,24 @@ if (Meteor.isClient) {
   Template.results.events({
     "click #restart": function() {
       Meteor.call("resetState")
+    }
+  })
+
+
+  Template.isbn.helpers({
+    bookName: function() {
+      return this.bookName.get()
+    },
+    bookImg : function() {
+      console.log("Image is: " + this.bookImg.get())
+      return this.bookImg.get()
+    },
+    authors : function() {
+      if(this.authors.get()) { // initialized
+        return this.authors.get().join(", ")
+      } else {
+        return ""
+      }
     }
   })
 }
@@ -181,5 +232,5 @@ Meteor.methods({
 
   resetState: function() {
     resetState()
-  }
+  },
 })
